@@ -2,30 +2,38 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#0b0b12">
   <title>Emilio Carder</title>
-
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg: #0b0b12;
+      --panel: #151520;
+      --panel2: #1d1d2b;
+      --text: #f7f7fb;
+      --muted: #9898ad;
+      --accent: #a879ff;
+      --accent2: #6b4cff;
+      --border: rgba(255,255,255,.08);
     }
+
+    * { box-sizing: border-box; }
 
     body {
-      background: #0b0b12;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-      padding: 22px 16px 100px;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
+    button { font: inherit; }
+
     .app {
-      max-width: 480px;
-      margin: auto;
+      max-width: 520px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px 17px 100px;
     }
 
     .header {
@@ -36,238 +44,339 @@
     }
 
     .brand {
-      font-size: 23px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      font-size: 17px;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 5px 25px #704bff44;
+      font-size: 21px;
+    }
+
+    .status {
+      background: #1b1b29;
+      border: 1px solid var(--border);
+      padding: 8px 11px;
+      border-radius: 30px;
+      font-size: 11px;
+      color: #c4b2ff;
+    }
+
+    .hero {
+      padding: 24px 21px;
+      border: 1px solid #a879ff35;
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at 90% 5%, #8758ff35, transparent 40%),
+        linear-gradient(145deg, #1b192c, #11111b);
+      margin-bottom: 20px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      color: #c3a9ff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       font-weight: 800;
-      letter-spacing: -1px;
     }
 
-    .brand span {
-      color: #a78bfa;
+    h1 {
+      font-size: 27px;
+      line-height: 1.2;
+      margin: 12px 0 9px;
     }
 
-    .badge {
-      background: #211a37;
-      border: 1px solid #47336e;
-      color: #c4b5fd;
-      padding: 8px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-    }
-
-    .welcome {
-      margin-bottom: 22px;
-    }
-
-    .welcome h1 {
-      font-size: 26px;
-      margin-bottom: 8px;
-    }
-
-    .welcome p {
-      color: #9292a5;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .balance {
-      padding: 25px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #32205d, #17142b 75%);
-      border: 1px solid #48316e;
-      margin-bottom: 25px;
-    }
-
-    .balance-label {
-      color: #c7bddc;
+    .subtitle {
+      color: var(--muted);
       font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
     }
 
     .points {
-      font-size: 36px;
-      font-weight: 800;
-      margin: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 17px;
+      background: #ffffff09;
+      border: 1px solid var(--border);
     }
 
-    .points small {
-      font-size: 14px;
-      color: #c4b5fd;
-    }
-
-    .balance-note {
+    .points-label {
+      color: var(--muted);
       font-size: 12px;
-      color: #b6a9d4;
+      margin-bottom: 5px;
+    }
+
+    .points-value {
+      font-size: 29px;
+      font-weight: 900;
+    }
+
+    .coin {
+      font-size: 32px;
+      background: #a879ff20;
+      width: 54px;
+      height: 54px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
     }
 
     .section-title {
-      font-size: 19px;
-      margin-bottom: 15px;
+      font-size: 17px;
+      font-weight: 800;
+      margin: 26px 0 13px;
     }
 
-    .quick-grid {
+    .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-bottom: 27px;
     }
 
-    .quick-card {
-      background: #15151f;
-      border: 1px solid #292936;
-      border-radius: 17px;
-      padding: 19px 15px;
+    .card {
+      text-align: left;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px 15px;
+      min-height: 145px;
+      cursor: pointer;
+      transition: transform .15s, background .15s;
     }
 
-    .quick-card .icon {
-      font-size: 25px;
-      margin-bottom: 13px;
+    .card:active { transform: scale(.97); }
+    .card:hover { background: var(--panel2); }
+
+    .card-icon {
+      font-size: 27px;
+      margin-bottom: 17px;
     }
 
-    .quick-card h3 {
+    .card-title {
+      font-weight: 800;
       font-size: 14px;
       margin-bottom: 6px;
     }
 
-    .quick-card p {
-      font-size: 12px;
-      color: #9292a5;
+    .card-desc {
+      color: var(--muted);
+      font-size: 11px;
       line-height: 1.5;
     }
 
     .notice {
-      padding: 17px;
-      background: #15151f;
-      border: 1px solid #292936;
-      border-radius: 16px;
-      color: #a5a5b5;
-      font-size: 13px;
+      margin-top: 20px;
+      background: #151521;
+      border: 1px solid var(--border);
+      padding: 15px;
+      border-radius: 17px;
+      font-size: 12px;
+      color: var(--muted);
       line-height: 1.6;
     }
 
-    .notice strong {
-      color: #ffffff;
-      display: block;
-      margin-bottom: 5px;
+    .notice strong { color: var(--text); }
+
+    .message {
+      display: none;
+      padding: 13px;
+      margin-top: 15px;
+      border-radius: 13px;
+      background: #211c35;
+      border: 1px solid #a879ff50;
+      font-size: 12px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
     }
+
+    .message.show { display: block; }
 
     .bottom-nav {
       position: fixed;
       bottom: 0;
-      left: 0;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 520px;
+      padding: 12px 10px calc(12px + env(safe-area-inset-bottom));
+      background: #101019f2;
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
       display: flex;
-      justify-content: center;
-      gap: 5px;
-      padding: 12px 8px calc(12px + env(safe-area-inset-bottom));
-      background: #11111a;
-      border-top: 1px solid #292936;
+      justify-content: space-around;
+      z-index: 10;
     }
 
-    .nav-item {
-      flex: 1;
-      max-width: 110px;
+    .nav-button {
       border: 0;
-      border-radius: 12px;
       background: transparent;
-      color: #858599;
-      padding: 10px 4px;
-      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
       cursor: pointer;
+      padding: 3px 10px;
     }
 
-    .nav-item span {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
+    .nav-button span { font-size: 20px; }
+    .nav-button.active { color: #c5a9ff; }
 
-    .nav-item.active {
-      background: #29203f;
-      color: #c4b5fd;
-    }
-
-    .status {
-      margin-top: 18px;
+    .footer {
+      color: #68687c;
+      font-size: 10px;
       text-align: center;
-      font-size: 11px;
-      color: #666679;
+      margin-top: 26px;
     }
   </style>
 </head>
-
 <body>
   <main class="app">
     <header class="header">
-      <div class="brand">EMILIO <span>CARDER</span></div>
-      <div class="badge">🎁 Rewards</div>
+      <div class="brand">
+        <div class="logo">E</div>
+        <div>EMILIO CARDER</div>
+      </div>
+      <div class="status" id="connectionStatus">● Bağlantı bekleniyor</div>
     </header>
 
-    <section class="welcome">
+    <section class="hero">
+      <div class="eyebrow">Ödül dünyana hoş geldin</div>
       <h1 id="welcomeTitle">Hoş geldin! 👋</h1>
-      <p>Görevlerini tamamla, puanlarını biriktir ve hediye kartlarını kazan.</p>
+      <p class="subtitle">
+        Görevleri tamamla, puan biriktir ve ödüllerini keşfet.
+      </p>
+
+      <div class="points">
+        <div>
+          <div class="points-label">Toplam puanın</div>
+          <div class="points-value" id="pointsValue">—</div>
+        </div>
+        <div class="coin">🪙</div>
+      </div>
     </section>
 
-    <section class="balance">
-      <div class="balance-label">Toplam puanın</div>
-      <div class="points">0 <small>PUAN</small></div>
-      <div class="balance-note">Görevlerini tamamlayarak puan biriktir.</div>
+    <div class="section-title">Keşfet</div>
+
+    <section class="grid">
+      <button class="card" onclick="showSection('tasks')">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Görevler</div>
+        <div class="card-desc">Görevleri keşfet, puan kazan.</div>
+      </button>
+
+      <button class="card" onclick="showSection('rewards')">
+        <div class="card-icon">🎁</div>
+        <div class="card-title">Hediye kartları</div>
+        <div class="card-desc">Mevcut ödülleri incele.</div>
+      </button>
+
+      <button class="card" onclick="showSection('referrals')">
+        <div class="card-icon">👥</div>
+        <div class="card-title">Arkadaşını davet et</div>
+        <div class="card-desc">Davet sistemini keşfet.</div>
+      </button>
+
+      <button class="card" onclick="showSection('profile')">
+        <div class="card-icon">👤</div>
+        <div class="card-title">Profilim</div>
+        <div class="card-desc">Hesap bilgilerini görüntüle.</div>
+      </button>
     </section>
 
-    <h2 class="section-title">Keşfet</h2>
+    <div class="message" id="messageBox"></div>
 
-    <section class="quick-grid">
-      <article class="quick-card">
-        <div class="icon">🎯</div>
-        <h3>Görevler</h3>
-        <p>Görevleri tamamla ve puan kazan.</p>
-      </article>
+    <div class="notice">
+      <strong>ℹ️ Emilio Carder hakkında</strong><br>
+      Arayüzün temel bağlantısı hazırlanıyor. Görevler, puan kazanımı ve
+      hediye kartı teslimi henüz etkin değil.
+    </div>
 
-      <article class="quick-card">
-        <div class="icon">🎁</div>
-        <h3>Hediye kartları</h3>
-        <p>Biriktirdiğin puanları ödüllere dönüştür.</p>
-      </article>
-
-      <article class="quick-card">
-        <div class="icon">👥</div>
-        <h3>Davet sistemi</h3>
-        <p>Arkadaşlarını davet et ve bonus kazan.</p>
-      </article>
-
-      <article class="quick-card">
-        <div class="icon">👤</div>
-        <h3>Profilim</h3>
-        <p>Hesabını ve ödül geçmişini görüntüle.</p>
-      </article>
-    </section>
-
-    <section class="notice">
-      <strong>🚀 Emilio Carder hazırlanıyor</strong>
-      Görevler, puan sistemi ve otomatik hediye kartı teslimatı
-      güvenli sunucu bağlantısı kurulduktan sonra etkinleştirilecek.
-    </section>
-
-    <div class="status">EMILIO CARDER · ÖDÜL PLATFORMU</div>
+    <div class="footer">EMILIO CARDER · Ödül platformu</div>
   </main>
 
   <nav class="bottom-nav">
-    <button class="nav-item active" data-tab="home">
-      <span>🏠</span>Ana sayfa
+    <button class="nav-button active" onclick="goHome(this)">
+      <span>⌂</span>Ana sayfa
     </button>
-    <button class="nav-item" data-tab="tasks">
+    <button class="nav-button" onclick="showSection('tasks', this)">
       <span>🎯</span>Görevler
     </button>
-    <button class="nav-item" data-tab="rewards">
+    <button class="nav-button" onclick="showSection('rewards', this)">
       <span>🎁</span>Ödüller
     </button>
-    <button class="nav-item" data-tab="profile">
+    <button class="nav-button" onclick="showSection('profile', this)">
       <span>👤</span>Profil
     </button>
   </nav>
 
   <script>
-    const telegram = window.Telegram?.WebApp;
+    const API_URL =
+      "https://jfxayudaempdjmdgvgnu.supabase.co/functions/v1/emilio-carder-api";
 
-    if (telegram) {
+    const telegram = window.Telegram?.WebApp;
+    const statusElement = document.getElementById("connectionStatus");
+    const messageBox = document.getElementById("messageBox");
+
+    function showMessage(message) {
+      messageBox.textContent = message;
+      messageBox.classList.add("show");
+    }
+
+    function goHome(button) {
+      document.querySelectorAll(".nav-button").forEach((item) => {
+        item.classList.remove("active");
+      });
+
+      if (button) button.classList.add("active");
+
+      messageBox.classList.remove("show");
+    }
+
+    function showSection(section, button) {
+      if (button) {
+        document.querySelectorAll(".nav-button").forEach((item) => {
+          item.classList.remove("active");
+        });
+        button.classList.add("active");
+      }
+
+      const messages = {
+        tasks: "Görev sistemi henüz kurulmadı. Bu bölüm sonraki aşamada etkinleştirilecek.",
+        rewards: "Hediye kartları ve kod teslimi henüz etkin değil.",
+        referrals: "Davet sistemi henüz etkin değil.",
+        profile: "Profil bilgileri yükleniyor veya bağlantı bekleniyor."
+      };
+
+      showMessage(messages[section] || "Bu bölüm hazırlanıyor.");
+    }
+
+    async function connectTelegram() {
+      if (!telegram) {
+        statusElement.textContent = "● Telegram gerekli";
+        showMessage(
+          "Kullanıcı hesabını doğrulamak için Emilio Carder'ı Telegram içindeki Mini App olarak açmalısın. Normal tarayıcıda Telegram oturum bilgisi bulunmaz."
+        );
+        return;
+      }
+
       telegram.ready();
       telegram.expand();
 
@@ -277,30 +386,52 @@
         document.getElementById("welcomeTitle").textContent =
           "Hoş geldin, " + user.first_name + "! 👋";
       }
-    }
 
-    document.querySelectorAll(".nav-item").forEach(button => {
-      button.addEventListener("click", () => {
-        document.querySelectorAll(".nav-item").forEach(item => {
-          item.classList.remove("active");
+      if (!telegram.initData) {
+        statusElement.textContent = "● Oturum doğrulanamadı";
+        showMessage("Telegram doğrulama verisi alınamadı. Mini App'i yeniden aç.");
+        return;
+      }
+
+      statusElement.textContent = "● Bağlanıyor…";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            initData: telegram.initData
+          })
         });
 
-        button.classList.add("active");
+        const result = await response.json();
 
-        const tab = button.dataset.tab;
-
-        const titles = {
-          home: "Ana sayfa",
-          tasks: "Görevler",
-          rewards: "Hediye kartları",
-          profile: "Profilim"
-        };
-
-        if (tab !== "home") {
-          alert(titles[tab] + " bölümü henüz etkinleştirilmedi.");
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || "Sunucu bağlantısı başarısız.");
         }
-      });
-    });
+
+        const profile = result.profile;
+
+        document.getElementById("welcomeTitle").textContent =
+          "Hoş geldin, " + (profile.first_name || user?.first_name || "dostum") + "! 👋";
+
+        document.getElementById("pointsValue").textContent =
+          Number(profile.points || 0).toLocaleString("tr-TR");
+
+        statusElement.textContent = "● Bağlandı";
+        messageBox.classList.remove("show");
+      } catch (error) {
+        statusElement.textContent = "● Bağlantı hatası";
+        showMessage(
+          "Sunucu bağlantısı kurulamadı. Fonksiyon ayarlarını ve sunucu günlüklerini kontrol et. Ayrıntı: " +
+          (error?.message || "Bilinmeyen hata")
+        );
+      }
+    }
+
+    connectTelegram();
   </script>
 </body>
 </html>
